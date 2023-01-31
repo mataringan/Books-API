@@ -32,7 +32,7 @@ exports.createBookPost = (req, res, next) => {
 
 exports.getAllBookPost = (req, res, next) => {
   const currentPage = req.query.page || 1;
-  const perPage = req.query.perPage || 10;
+  const perPage = req.query.perPage || 11;
 
   let totalItems;
 
@@ -68,11 +68,11 @@ exports.getAllBookPost = (req, res, next) => {
 };
 
 exports.getBookPostById = (req, res, next) => {
-  const postId = req.params.postId;
-  BookPost.findById(postId)
+  const bookId = req.params.bookId;
+  BookPost.findById(bookId)
     .then((result) => {
       res.status(200).json({
-        message: "Data Book Berhasil Dipanggil",
+        message: "Data Buku Berhasil Dipanggil",
         data: result,
       });
     })
@@ -86,9 +86,9 @@ exports.updateBookPost = (req, res, next) => {
   const createdAt = req.body.createdAt;
   const image = req.file.path;
 
-  const postId = req.params.postId;
+  const bookId = req.params.bookId;
 
-  BookPost.findById(postId)
+  BookPost.findById(bookId)
     .then((post) => {
       post.title = title;
       post.body = body;
@@ -110,16 +110,16 @@ exports.updateBookPost = (req, res, next) => {
 };
 
 exports.deleteBookPost = (req, res, next) => {
-  const postId = req.params.postId;
+  const bookId = req.params.bookId;
 
-  BookPost.findById(postId)
+  BookPost.findById(bookId)
     .then((post) => {
       removeImage(post.image);
-      return BookPost.findByIdAndRemove(postId);
+      return BookPost.findByIdAndRemove(bookId);
     })
     .then((result) => {
       res.status(200).json({
-        message: "Hapus Data Berhasil",
+        message: "Hapus Data Buku Berhasil",
         data: result,
       });
     })

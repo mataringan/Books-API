@@ -40,7 +40,7 @@ app.use(
   }).single("image")
 );
 
-app.use("/v1/book", bookRouters);
+app.use("/v1", bookRouters);
 
 mongoose.set("strictQuery", false);
 mongoose
